@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EE21F5C2-C105-4741-9C56-D6FF5B856689}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OrderSample.StateMachine</RootNamespace>
+    <AssemblyName>OrderSample.StateMachine</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Actions\Cancel.cs" />
+    <Compile Include="Actions\CreateNew.cs" />
+    <Compile Include="Actions\MarkAsPaidWithCash.cs" />
+    <Compile Include="Actions\MarkAsShipped.cs" />
+    <Compile Include="Actions\Pay.cs" />
+    <Compile Include="Actions\Update.cs" />
+    <Compile Include="Handlers\CancelHandler.cs" />
+    <Compile Include="Handlers\CancelRequestHandler.cs" />
+    <Compile Include="Handlers\CreateNewHandler.cs" />
+    <Compile Include="Handlers\MarkAsPaidWithCashHandler.cs" />
+    <Compile Include="Handlers\MarkAsShippedHandler.cs" />
+    <Compile Include="Handlers\PayHandler.cs" />
+    <Compile Include="Handlers\UpdateHandler.cs" />
+    <Compile Include="OrderStateMachine.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="OrderStateMachine.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OrderSample Domain Objects\OrderSample Domain Objects.csproj">
+      <Project>{25f55ae5-7fb8-4fbb-978b-123c7422f801}</Project>
+      <Name>OrderSample Domain Objects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\State Machine\State Machine.csproj">
+      <Project>{21c40da3-0b01-41f8-b2dd-09412844f5fa}</Project>
+      <Name>State Machine</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
