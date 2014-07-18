@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 
 namespace LuxStateMachine
 {
@@ -27,6 +28,8 @@ namespace LuxStateMachine
 
         public IActionConfigurator1<TState> If(Func<bool> predicate)
         {
+            Contract.Requires<ArgumentNullException>(predicate != null);
+
             this.PreCondition = predicate;
             return this;
         }

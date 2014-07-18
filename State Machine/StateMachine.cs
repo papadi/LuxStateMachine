@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using Microsoft.Practices.Unity;
 
@@ -18,6 +19,7 @@ namespace LuxStateMachine
 
         protected StateMachine(IUnityContainer unityContainer)
         {
+            Contract.Requires<ArgumentNullException>(unityContainer != null);
             if (unityContainer == null) throw new ArgumentNullException("unityContainer");
 
             this.unityContainer = unityContainer;
@@ -49,7 +51,8 @@ namespace LuxStateMachine
 
         public void Invoke<TAction>(IStateContainer<TState> stateContainer, TAction action) where TAction : class 
         {
-            if (action == null) throw new ArgumentNullException("action");
+            Contract.Requires<ArgumentNullException>(stateContainer != null);
+            Contract.Requires<ArgumentNullException>(action != null);
 
             var stateBeforeExecution = stateContainer.State;
 
@@ -69,11 +72,15 @@ namespace LuxStateMachine
 
         public bool SupportsAction<TAction>(IStateContainer<TState> stateContainer)
         {
+            Contract.Requires<ArgumentNullException>(stateContainer != null);
+
             return this.GetActionConfigurations(typeof(TAction), stateContainer.State).Any();
         }
 
         public IEnumerable<ActionConfiguration<TState>> GetSupportedActions(IStateContainer<TState> stateContainer)
         {
+            Contract.Requires<ArgumentNullException>(stateContainer != null);
+
             var supportedActions = this.GetStateConfiguration(stateContainer.State).Actions.Where(p => p.PreConditionsSatisfied());
 
             // It is possible that an action appears twice in the supported actions (for example when it can be handled by different handlers depending on the Condition)
