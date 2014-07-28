@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 
 namespace LuxStateMachine
 {
+    [ContractClass(typeof(StateMachineContracts<>))]
     public interface IStateMachine<TState>
     {
         void Invoke<TAction>(IStateContainer<TState> stateContainer, TAction action) where TAction : class;
