@@ -6,7 +6,6 @@
         Submitted,
         Paid,
         Shipped,
-        CancelationRequested,
         Canceled
     }
 }

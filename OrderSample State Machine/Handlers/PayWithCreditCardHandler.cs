@@ -4,9 +4,9 @@ using OrderSample.DomainObjects;
 
 namespace OrderSample.StateMachine.Handlers
 {
-    public class PayHandler
+    public class PayWithCreditCardHandler
     {
-        public PayHandler(Pay action, Order item)
+        public PayWithCreditCardHandler(PayWithCreditCard action, Order item)
         {
             // Validate the card
             if (action.CreditCardExpirationDate < DateTime.Now) throw new InvalidOperationException("Credit card has expired");

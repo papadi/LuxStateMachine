@@ -18,21 +18,16 @@ namespace OrderSample.StateMachine
                     this[state].Supports<CreateNew>().HandledBy<CreateNewHandler>().ResultsInStates(OrderState.Submitted);
                     break;
                 case OrderState.Submitted:
-                    this[state].Supports<Cancel>().IfUserInRole(EmployeeGroupName).HandledBy<CancelHandler>().ResultsInStates(OrderState.Canceled);
-                    this[state].Supports<Cancel>().HandledBy<CancelRequestHandler>().ResultsInStates(OrderState.CancelationRequested);
+                    this[state].Supports<Cancel>().HandledBy<CancelHandler>().ResultsInStates(OrderState.Canceled);
                     this[state].Supports<Update>().HandledBy<UpdateHandler>().DoesNotChangeState();
-                    this[state].Supports<MarkAsPaidWithCash>().HandledBy<MarkAsPaidWithCashHandler>().ResultsInStates(OrderState.Paid);
-                    this[state].Supports<Pay>().HandledBy<PayHandler>().ResultsInStates(OrderState.Paid);
-                    break;
-                case OrderState.CancelationRequested:
-                    this[state].Supports<Cancel>().IfUserInRole(EmployeeGroupName).HandledBy<CancelHandler>().ResultsInStates(OrderState.Canceled);
+                    this[state].Supports<MarkAsPaidWithCash>().IfUserInRole(EmployeeGroupName).HandledBy<MarkAsPaidWithCashHandler>().ResultsInStates(OrderState.Paid);
+                    this[state].Supports<PayWithCreditCard>().HandledBy<PayWithCreditCardHandler>().ResultsInStates(OrderState.Paid);
                     break;
                 case OrderState.Paid:
-                    this[state].Supports<Cancel>().IfUserInRole(EmployeeGroupName).HandledBy<CancelHandler>().ResultsInStates(OrderState.Canceled);
-                    this[state].Supports<MarkAsShipped>().HandledBy<MarkAsShippedHandler>().ResultsInStates(OrderState.Shipped);
+                    this[state].Supports<MarkAsShipped>().IfUserInRole(EmployeeGroupName).HandledBy<MarkAsShippedHandler>().ResultsInStates(OrderState.Shipped);
                     break;
                 case OrderState.Shipped:
-                    this[state].Supports<Cancel>().IfUserInRole(EmployeeGroupName).HandledBy<CancelHandler>().ResultsInStates(OrderState.Canceled);
+                    this[state].IsTerminalState();
                     break;
                 case OrderState.Canceled:
                     this[state].IsTerminalState();

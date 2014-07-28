@@ -2,7 +2,7 @@
 
 namespace OrderSample.StateMachine.Actions
 {
-    public class Pay
+    public class PayWithCreditCard
     {
         public string CreditCardNumber { get; set; }
 

@@ -38,14 +38,13 @@
     <Compile Include="Actions\CreateNew.cs" />
     <Compile Include="Actions\MarkAsPaidWithCash.cs" />
     <Compile Include="Actions\MarkAsShipped.cs" />
-    <Compile Include="Actions\Pay.cs" />
+    <Compile Include="Actions\PayWithCreditCard.cs" />
     <Compile Include="Actions\Update.cs" />
     <Compile Include="Handlers\CancelHandler.cs" />
-    <Compile Include="Handlers\CancelRequestHandler.cs" />
     <Compile Include="Handlers\CreateNewHandler.cs" />
     <Compile Include="Handlers\MarkAsPaidWithCashHandler.cs" />
     <Compile Include="Handlers\MarkAsShippedHandler.cs" />
-    <Compile Include="Handlers\PayHandler.cs" />
+    <Compile Include="Handlers\PayWithCreditCardHandler.cs" />
     <Compile Include="Handlers\UpdateHandler.cs" />
     <Compile Include="OrderStateMachine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

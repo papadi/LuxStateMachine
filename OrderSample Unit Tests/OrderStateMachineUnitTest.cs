@@ -42,7 +42,7 @@ namespace OrderSample.UnitTests
             Assert.IsTrue(possibleActions.Any(p => p.ActionType == typeof(Cancel)));
             Assert.IsTrue(possibleActions.Any(p => p.ActionType == typeof(MarkAsPaidWithCash)));
             Assert.IsTrue(possibleActions.Any(p => p.ActionType == typeof(Update)));
-            Assert.IsTrue(possibleActions.Any(p => p.ActionType == typeof(Pay)));
+            Assert.IsTrue(possibleActions.Any(p => p.ActionType == typeof(PayWithCreditCard)));
 
             // Case 4 : Update
             var updateAction = new Update { NumberOfItems = 4 };
@@ -55,7 +55,7 @@ namespace OrderSample.UnitTests
             // Case 5 : Perform payment with invalid card
             ExceptionAssert.Throws<ResolutionFailedException>(() =>
             {
-                var invalidPayAction = new Pay { CreditCardNumber = "11112222223333", CreditCardExpirationDate = DateTime.Today.AddYears(-1), CreditCardSecurityCode = "111", CreditCardOwner = "Black Jack" };
+                var invalidPayAction = new PayWithCreditCard { CreditCardNumber = "11112222223333", CreditCardExpirationDate = DateTime.Today.AddYears(-1), CreditCardSecurityCode = "111", CreditCardOwner = "Black Jack" };
                 stateMachine.Invoke(order, invalidPayAction);
             });
 
@@ -63,7 +63,7 @@ namespace OrderSample.UnitTests
             Assert.AreEqual(OrderState.Submitted, order.State);
 
             // Case 6 : Perform payment with valid card
-            var payAction = new Pay { CreditCardNumber = "11112222223333", CreditCardExpirationDate = DateTime.Today.AddYears(1), CreditCardSecurityCode = "111", CreditCardOwner = "Black Jack" };
+            var payAction = new PayWithCreditCard { CreditCardNumber = "11112222223333", CreditCardExpirationDate = DateTime.Today.AddYears(1), CreditCardSecurityCode = "111", CreditCardOwner = "Black Jack" };
             stateMachine.Invoke(order, payAction);
 
             // Assert the new state
@@ -71,8 +71,7 @@ namespace OrderSample.UnitTests
 
             // Case 7 : Get Possible actions after payment
             possibleActions = stateMachine.GetSupportedActions(order).ToArray();
-            Assert.AreEqual(2, possibleActions.Length);
-            Assert.IsTrue(possibleActions.Any(p => p.ActionType == typeof(Cancel)));
+            Assert.AreEqual(1, possibleActions.Length);
             Assert.IsTrue(possibleActions.Any(p => p.ActionType == typeof(MarkAsShipped)));
         }
     }
