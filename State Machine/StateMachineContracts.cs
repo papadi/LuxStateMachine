@@ -19,7 +19,7 @@ namespace LuxStateMachine
             return false;
         }
 
-        public IEnumerable<ActionConfiguration<TState>> GetSupportedActions(IStateContainer<TState> stateContainer)
+        public IEnumerable<IActionConfiguration<TState>> GetSupportedActions(IStateContainer<TState> stateContainer)
         {
             Contract.Requires<ArgumentNullException>(stateContainer != null);
             return null;

@@ -31,7 +31,7 @@ namespace LuxStateMachine
         private IEnumerable<ActionConfiguration<TState>> GetActionConfigurations(Type actionType, TState state)
         {
             var stateConfiguration = this.GetStateConfiguration(state);
-            return stateConfiguration.Actions.Where(p => p.ActionType == actionType && p.PreConditionsSatisfied());
+            return stateConfiguration.Actions.OfType<ActionConfiguration<TState>>().Where(p => p.ActionType == actionType && p.PreConditionsSatisfied());
         }
 
         public StateConfiguration<TState> GetStateConfiguration(TState state)
@@ -71,9 +71,9 @@ namespace LuxStateMachine
             return this.GetActionConfigurations(typeof(TAction), stateContainer.State).Any();
         }
 
-        public IEnumerable<ActionConfiguration<TState>> GetSupportedActions(IStateContainer<TState> stateContainer)
+        public IEnumerable<IActionConfiguration<TState>> GetSupportedActions(IStateContainer<TState> stateContainer)
         {
-            var supportedActions = this.GetStateConfiguration(stateContainer.State).Actions.Where(p => p.PreConditionsSatisfied());
+            var supportedActions = this.GetStateConfiguration(stateContainer.State).Actions.OfType<ActionConfiguration<TState>>().Where(p => p.PreConditionsSatisfied());
 
             // It is possible that an action appears twice in the supported actions (for example when it can be handled by different handlers depending on the Condition)
             // Here we keep the first one, which is the one that will be used anyway

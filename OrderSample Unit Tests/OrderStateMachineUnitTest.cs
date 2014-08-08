@@ -17,7 +17,7 @@ namespace OrderSample.UnitTests
         public void TestNewOrder()
         {
             var order = new Order();
-            var stateMachine = new OrderStateMachine();
+            IStateMachine<OrderState> stateMachine = new OrderStateMachine();
 
             // Case 1 : Cannot apply pay action on new order
             Assert.AreEqual(false, stateMachine.SupportsAction<MarkAsPaidWithCash>(order));
@@ -38,6 +38,7 @@ namespace OrderSample.UnitTests
 
             // Case 3 : Get Possible actions after Submitted state
             var possibleActions = stateMachine.GetSupportedActions(order).ToArray();
+
             Assert.AreEqual(4, possibleActions.Length);
             Assert.IsTrue(possibleActions.Any(p => p.ActionType == typeof(Cancel)));
             Assert.IsTrue(possibleActions.Any(p => p.ActionType == typeof(MarkAsPaidWithCash)));

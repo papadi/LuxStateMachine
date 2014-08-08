@@ -6,10 +6,10 @@ namespace LuxStateMachine
     {
         public StateConfiguration()
         {
-            this.Actions = new List<ActionConfiguration<TState>>();
+            this.Actions = new List<IActionConfiguration<TState>>();
         }
 
-        public IList<ActionConfiguration<TState>> Actions { get; private set; }
+        public IList<IActionConfiguration<TState>> Actions { get; private set; }
 
         public IActionConfigurator1<TState> Supports<TAction>()
         {

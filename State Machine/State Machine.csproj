@@ -85,6 +85,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IActionConfiguration.cs" />
     <Compile Include="InvalidActionException.cs" />
     <Compile Include="IStateConfigurator.cs" />
     <Compile Include="IStateContainer.cs" />

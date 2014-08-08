@@ -10,6 +10,6 @@ namespace LuxStateMachine
 
         bool SupportsAction<TAction>(IStateContainer<TState> stateContainer);
 
-        IEnumerable<ActionConfiguration<TState>> GetSupportedActions(IStateContainer<TState> stateContainer);
+        IEnumerable<IActionConfiguration<TState>> GetSupportedActions(IStateContainer<TState> stateContainer);
     }
 }

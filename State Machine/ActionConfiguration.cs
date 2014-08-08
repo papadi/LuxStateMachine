@@ -5,7 +5,7 @@ using System.Diagnostics.Contracts;
 
 namespace LuxStateMachine
 {
-    public class ActionConfiguration<TState> : IActionConfigurator1<TState>, IActionConfigurator2<TState>
+    public class ActionConfiguration<TState> : IActionConfigurator1<TState>, IActionConfigurator2<TState>, IActionConfiguration<TState>
     {
         public ActionConfiguration(Type actionType)
         {
